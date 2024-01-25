@@ -86,6 +86,8 @@ BG="$G04"
 
 # Short for Highlight Colour
 HC=$(tmux_get @tmux_power_highlight_color "$TC")
+PC=$(tmux_get @tmux_power_prefix_color "$HC")
+CC=$(tmux_get @tmux_power_copy_color "$HC")
 
 # Status options
 tmux_set status-interval 1
@@ -97,11 +99,13 @@ tmux_set status-bg "$BG"
 tmux_set status-attr none
 
 # tmux-prefix-highlight
-tmux_set @prefix_highlight_fg "$HC"
+tmux_set @prefix_highlight_fg "$PC"
 tmux_set @prefix_highlight_bg "$BG"
 tmux_set @prefix_highlight_show_copy_mode 'on'
-tmux_set @prefix_highlight_copy_mode_attr "fg=$HC,bg=$BG,bold"
-tmux_set @prefix_highlight_output_prefix "#[fg=$HC]#[bg=$BG]"
+tmux_set @prefix_highlight_copy_mode_attr "fg=$CC"
+tmux_set @prefix_highlight_prefix_prompt "Prefix"
+tmux_set @prefix_highlight_output_prefix "#[bold]"
+tmux_set @prefix_highlight_output_suffix ""
 
 #     
 # Left side of status bar

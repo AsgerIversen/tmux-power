@@ -84,6 +84,9 @@ G12=#767676 #243
 FG="$G10"
 BG="$G04"
 
+# Short for Highlight Colour
+HC=$(tmux_get @tmux_power_highlight_color "$TC")
+
 # Status options
 tmux_set status-interval 1
 tmux_set status on
@@ -94,12 +97,11 @@ tmux_set status-bg "$BG"
 tmux_set status-attr none
 
 # tmux-prefix-highlight
-tmux_set @prefix_highlight_fg "$BG"
-tmux_set @prefix_highlight_bg "$FG"
+tmux_set @prefix_highlight_fg "$HC"
+tmux_set @prefix_highlight_bg "$BG"
 tmux_set @prefix_highlight_show_copy_mode 'on'
-tmux_set @prefix_highlight_copy_mode_attr "fg=$TC,bg=$BG,bold"
-tmux_set @prefix_highlight_output_prefix "#[fg=$TC]#[bg=$BG]$larrow#[bg=$TC]#[fg=$BG]"
-tmux_set @prefix_highlight_output_suffix "#[fg=$TC]#[bg=$BG]$rarrow"
+tmux_set @prefix_highlight_copy_mode_attr "fg=$HC,bg=$BG,bold"
+tmux_set @prefix_highlight_output_prefix "#[fg=$HC]#[bg=$BG]"
 
 #     
 # Left side of status bar
@@ -167,4 +169,4 @@ tmux_set message-style "fg=$TC,bg=$BG"
 tmux_set message-command-style "fg=$TC,bg=$BG"
 
 # Copy mode highlight
-tmux_set mode-style "bg=$TC,fg=$FG"
+tmux_set mode-style "bg=$HC,fg=$BG"

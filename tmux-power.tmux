@@ -31,6 +31,7 @@ show_upload_speed="$(tmux_get @tmux_power_show_upload_speed false)"
 show_download_speed="$(tmux_get @tmux_power_show_download_speed false)"
 show_web_reachable="$(tmux_get @tmux_power_show_web_reachable false)"
 prefix_highlight_pos=$(tmux_get @tmux_power_prefix_highlight_pos)
+prefix_highlight_invert=$(tmux_get @tmux_power_prefix_highlight_invert_color false)
 time_format=$(tmux_get @tmux_power_time_format '%T')
 date_format=$(tmux_get @tmux_power_date_format '%F')
 # short for Theme-Colour
@@ -103,9 +104,18 @@ tmux_set @prefix_highlight_fg "$PC"
 tmux_set @prefix_highlight_bg "$BG"
 tmux_set @prefix_highlight_show_copy_mode 'on'
 tmux_set @prefix_highlight_copy_mode_attr "fg=$CC"
-tmux_set @prefix_highlight_prefix_prompt "Prefix"
-tmux_set @prefix_highlight_output_prefix "#[bold]"
-tmux_set @prefix_highlight_output_suffix ""
+if [[ $prefix_highlight_pos == 'R' && $prefix_highlight_invert == true ]]; then
+    tmux_set @prefix_highlight_prefix_prompt " Prefix "
+    tmux_set @prefix_highlight_output_prefix "#[bold]$larrow#[fg=$BG]#[bg=$PC]"
+    tmux_set @prefix_highlight_copy_prompt "#[bg=$CC] Copy "
+    tmux_set @prefix_highlight_output_suffix "#[nobold]$larrow"
+else
+    tmux_set @prefix_highlight_prefix_prompt "Prefix"
+    tmux_set @prefix_highlight_output_prefix "#[bold]"
+    tmux_set @prefix_highlight_output_suffix ""
+    tmux_set @prefix_highlight_copy_prompt "Copy"
+fi
+
 
 #     
 # Left side of status bar

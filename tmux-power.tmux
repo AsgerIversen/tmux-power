@@ -23,8 +23,8 @@ rarrow=$(tmux_get '@tmux_power_right_arrow_icon' '')
 larrow=$(tmux_get '@tmux_power_left_arrow_icon' '')
 upload_speed_icon=$(tmux_get '@tmux_power_upload_speed_icon' '󰕒')
 download_speed_icon=$(tmux_get '@tmux_power_download_speed_icon' '󰇚')
-session_icon="$(tmux_get '@tmux_power_session_icon' '')"
-user_icon="$(tmux_get '@tmux_power_user_icon' '')"
+session_icon="$(tmux_get '@tmux_power_session_icon' '')"
+user_icon="$(tmux_get '@tmux_power_user_icon' '󰍹')"
 time_icon="$(tmux_get '@tmux_power_time_icon' '')"
 date_icon="$(tmux_get '@tmux_power_date_icon' '')"
 show_upload_speed="$(tmux_get @tmux_power_show_upload_speed false)"
@@ -74,16 +74,16 @@ G02=#121212 #233
 G03=#1c1c1c #234
 G04=#262626 #235
 G05=#303030 #236
-G06=#3a3a3a #237
-G07=#444444 #238
+G06=#31353f #237
+G07=#3b3f4c #238
 G08=#4e4e4e #239
 G09=#585858 #240
 G10=#626262 #241
-G11=#6c6c6c #242
-G12=#767676 #243
+G11=#828997 #242
+G12=#abb2bf #243
 
 FG="$G10"
-BG="$G04"
+BG="#282c34"
 
 # Short for Highlight Colour
 HC=$(tmux_get @tmux_power_highlight_color "$TC")
@@ -123,7 +123,7 @@ tmux_set status-left-bg "$G04"
 tmux_set status-left-fg "$G12"
 tmux_set status-left-length 150
 user=$(whoami)
-LS="#[fg=$G04,bg=$TC,bold] $user_icon $user@#h #[fg=$TC,bg=$G06,nobold]$rarrow#[fg=$TC,bg=$G06] $session_icon #S "
+LS="#[fg=$G04,bg=$TC,bold] $session_icon #S #[fg=$G11,bg=$G06,none] $user_icon #h "
 if "$show_upload_speed"; then
     LS="$LS#[fg=$G06,bg=$G05]$rarrow#[fg=$TC,bg=$G05] $upload_speed_icon #{upload_speed} #[fg=$G05,bg=$BG]$rarrow"
 else
@@ -138,7 +138,7 @@ tmux_set status-left "$LS"
 tmux_set status-right-bg "$BG"
 tmux_set status-right-fg "$G12"
 tmux_set status-right-length 150
-RS="#[fg=$G06]$larrow#[fg=$TC,bg=$G06] $time_icon $time_format #[fg=$TC,bg=$G06]$larrow#[fg=$G04,bg=$TC] $date_icon $date_format "
+RS="#[fg=$G06]$larrow#[fg=$G11,bg=$G06] $time_icon $time_format  $date_icon $date_format "
 if "$show_download_speed"; then
     RS="#[fg=$G05,bg=$BG]$larrow#[fg=$TC,bg=$G05] $download_speed_icon #{download_speed} $RS"
 fi
@@ -151,8 +151,8 @@ fi
 tmux_set status-right "$RS"
 
 # Window status format
-tmux_set window-status-format         "#[fg=$BG,bg=$G06]$rarrow#[fg=$TC,bg=$G06] #I:#W #[fg=$G06,bg=$BG]$rarrow"
-tmux_set window-status-current-format "#[fg=$BG,bg=$TC]$rarrow#[fg=$BG,bg=$TC,bold] #I:#W #[fg=$TC,bg=$BG,nobold]$rarrow"
+tmux_set window-status-format         "#[fg=$BG,bg=$G06]$rarrow#[fg=$G11,bg=$G06,nobold] #I:#W #[fg=$G06,bg=$BG]$rarrow"
+tmux_set window-status-current-format "#[fg=$BG,bg=$G07]$rarrow#[fg=$TC,bg=$G07,bold] #I:#W #[fg=$G07,bg=$BG,nobold]$rarrow"
 
 # Window status style
 tmux_set window-status-style          "fg=$TC,bg=$BG,none"
